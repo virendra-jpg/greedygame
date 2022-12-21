@@ -12,7 +12,7 @@ const AppListing = () => {
   let [isLoaded, setIsLoaded] = useState(false);
   
   const dispatch = useDispatch();
-  const url = "http://go-dev.greedygame.com/v3/dummy/report?startDate=" + startDate + "&endDate=" + endDate;
+  const url = "https://go-dev.greedygame.com/v3/dummy/report?startDate=" + startDate + "&endDate=" + endDate;
   const fetchProducts = async () => {
     const response = await axios.get(url).catch((err) => {
       console.log("Err: ", err);
@@ -22,7 +22,7 @@ const AppListing = () => {
   };
   const fetchApps = async () => {
     const response = await axios
-      .get("http://go-dev.greedygame.com/v3/dummy/apps")
+      .get("https://go-dev.greedygame.com/v3/dummy/apps")
       .catch((err) => {
         console.log("Err: ", err);
       });
@@ -36,13 +36,16 @@ const AppListing = () => {
   useEffect(() => {
     if (startDate && endDate) {
       fetchProducts();
-      fetchApps();
+      
       setIsLoaded(true);
     }
     else{
       setIsLoaded(false);
     }
-  }, [url]);
+    fetchApps();
+  }, [endDate , startDate , url]);
+
+  
 
  
 
